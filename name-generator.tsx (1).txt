@@ -1,0 +1,59 @@
+import React, { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Shuffle } from 'lucide-react';
+
+const NameGenerator = () => {
+  const [generatedNames, setGeneratedNames] = useState([]);
+  
+  const namesList = [
+    { name: "Leonardo da Vinci", category: "Artist", color: "bg-purple-500" },
+    { name: "Marie Curie", category: "Scientist", color: "bg-blue-500" },
+    { name: "William Shakespeare", category: "Writer", color: "bg-green-500" },
+    { name: "Albert Einstein", category: "Scientist", color: "bg-indigo-500" },
+    { name: "Frida Kahlo", category: "Artist", color: "bg-pink-500" },
+    { name: "Nelson Mandela", category: "Leader", color: "bg-yellow-500" },
+    { name: "Mozart", category: "Musician", color: "bg-red-500" },
+    { name: "Maya Angelou", category: "Poet", color: "bg-teal-500" },
+    { name: "Steve Jobs", category: "Innovator", color: "bg-orange-500" },
+    { name: "Florence Nightingale", category: "Pioneer", color: "bg-cyan-500" }
+  ];
+
+  const generateNames = () => {
+    const shuffled = [...namesList]
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 5);
+    setGeneratedNames(shuffled);
+  };
+
+  return (
+    <Card className="w-full max-w-md">
+      <CardHeader>
+        <CardTitle className="text-center">Notable Names Generator</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <Button 
+          onClick={generateNames}
+          className="w-full flex items-center justify-center gap-2"
+        >
+          <Shuffle className="h-4 w-4" />
+          Generate Names
+        </Button>
+        
+        <div className="space-y-2">
+          {generatedNames.map((person, index) => (
+            <div
+              key={index}
+              className={`${person.color} p-3 rounded-lg shadow-sm transition-all duration-200 hover:scale-102 text-white`}
+            >
+              <div className="font-semibold">{person.name}</div>
+              <div className="text-sm opacity-90">{person.category}</div>
+            </div>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+export default NameGenerator;
